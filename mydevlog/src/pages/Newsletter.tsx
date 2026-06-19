@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Zap, CheckCircle, Loader2, ArrowRight } from 'lucide-react';
+import SEOHead from '../seo/SEOHead';
+import { breadcrumbSchema, SITE_URL } from '../seo/schemas';
 
 const PERKS = [
   { icon: '📬', text: 'New articles delivered to your inbox' },
@@ -23,6 +25,17 @@ const Newsletter: React.FC = () => {
 
   return (
     <main className="pt-24 pb-20 min-h-screen">
+      <SEOHead
+        title="Engineering Newsletter by Mohamed Mydeen"
+        description="Subscribe to The Engineering Digest by Mohamed Mydeen for bi-weekly dispatches on AI engineering, full-stack architecture, and building products."
+        canonical={`${SITE_URL}/newsletter`}
+        schema={[
+          breadcrumbSchema([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Newsletter', url: `${SITE_URL}/newsletter` },
+          ]),
+        ]}
+      />
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
         {/* Header */}

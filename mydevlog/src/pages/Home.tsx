@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, BookOpen, Zap, Cpu, ShieldCheck, Database, Radio } from 'lucide-react';
 import ArticleCard from '../components/ui/ArticleCard';
 import { articles, getFeaturedArticles } from '../data/articles';
+import SEOHead from '../seo/SEOHead';
+import { websiteSchema, personSchema, breadcrumbSchema, SITE_URL } from '../seo/schemas';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 32 },
@@ -47,6 +49,17 @@ const Home: React.FC = () => {
 
   return (
     <main>
+      <SEOHead
+        title="Mohamed Mydeen — Full Stack & AI Engineer | Tech Blog"
+        description="Premium personal tech blog by Mohamed Mydeen. Deep dives into React.js, AI engineering, FastAPI, and production-grade software development."
+        canonical={SITE_URL}
+        schema={[
+          websiteSchema(),
+          personSchema(),
+          breadcrumbSchema([{ name: 'Home', url: SITE_URL }]),
+        ]}
+        keywords="Mohamed Mydeen, Mohamed Mydeen Shahabudeen, Ukasha, full stack developer, AI engineer, React developer, tech blog, software engineering"
+      />
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden pt-20">
 

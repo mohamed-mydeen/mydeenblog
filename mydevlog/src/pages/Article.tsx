@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Calendar, Link2, ArrowRight } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneLight, oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { getArticleBySlug, articles } from '../data/articles';
 import { useTheme } from '../context/ThemeContext';
 import ReadingProgress from '../components/ui/ReadingProgress';
 import ArticleCard from '../components/ui/ArticleCard';
+import SEOHead from '../seo/SEOHead';
+import { articleSchema, breadcrumbSchema, personSchema, SITE_URL } from '../seo/schemas';
+import { trackArticleRead, trackClap, trackShare } from '../lib/analytics';
+
+// Lazy load SyntaxHighlighter — it's ~500KB and only needed in article pages
+const SyntaxHighlighter = lazy(() =>
+  import('react-syntax-highlighter').then(m => ({ default: m.Prism }))
+);
+const loadStyles = () => import('react-syntax-highlighter/dist/esm/styles/prism');
 
 // ─── Custom Code Block Component with Copy ────────────────────────────────────
 interface CodeBlockProps {
@@ -18,6 +25,11 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ code, lang, isDark }) => {
   const [copied, setCopied] = useState(false);
+  const [hlStyles, setHlStyles] = React.useState<{ oneLight: object; oneDark: object } | null>(null);
+
+  React.useEffect(() => {
+    loadStyles().then(s => setHlStyles({ oneLight: s.oneLight as object, oneDark: s.oneDark as object }));
+  }, []);
 
   const handleCopy = async () => {
     try {
@@ -47,23 +59,32 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, lang, isDark }) => {
           {copied ? 'Copied! ✓' : 'Copy'}
         </button>
       </div>
-      <SyntaxHighlighter
-        language={lang}
-        style={isDark ? oneDark : oneLight}
-        customStyle={{
-          margin: 0,
-          borderRadius: 0,
-          fontSize: '13px',
-          lineHeight: '1.7',
-          background: isDark ? '#0f1117' : '#f9fafb',
-          padding: '1.25rem',
-        }}
-      >
-        {code}
-      </SyntaxHighlighter>
+      <Suspense fallback={
+        <div className="bg-slate-50 dark:bg-ink-900 p-4 font-mono text-xs text-slate-500 dark:text-slate-400 whitespace-pre-wrap overflow-x-auto">
+          {code}
+        </div>
+      }>
+        {hlStyles && (
+          <SyntaxHighlighter
+            language={lang}
+            style={isDark ? hlStyles.oneDark as never : hlStyles.oneLight as never}
+            customStyle={{
+              margin: 0,
+              borderRadius: 0,
+              fontSize: '13px',
+              lineHeight: '1.7',
+              background: isDark ? '#0f1117' : '#f9fafb',
+              padding: '1.25rem',
+            }}
+          >
+            {code}
+          </SyntaxHighlighter>
+        )}
+      </Suspense>
     </div>
   );
 };
+
 
 // ─── Main Article Component ───────────────────────────────────────────────────
 const Article: React.FC = () => {
@@ -94,6 +115,8 @@ const Article: React.FC = () => {
       return;
     }
     window.scrollTo({ top: 0, behavior: 'instant' });
+    // Track article read analytics event
+    trackArticleRead(article.slug, article.title);
 
     // Extract Headings for Table of Contents
     const lines = article.content.split('\n');
@@ -157,6 +180,7 @@ const Article: React.FC = () => {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
+    trackShare(article.slug, 'copy_link');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -168,6 +192,7 @@ const Article: React.FC = () => {
     setHasClapped(true);
     localStorage.setItem(`claps-${article.id}`, newClaps.toString());
     localStorage.setItem(`has-clapped-${article.id}`, 'true');
+    trackClap(article.slug, newClaps);
   };
 
   // Markdown-to-JSX Renderer with ID extraction
@@ -242,6 +267,35 @@ const Article: React.FC = () => {
 
   return (
     <>
+      <SEOHead
+        title={article.seoTitle || article.title}
+        description={article.seoDescription || article.excerpt}
+        canonical={`${SITE_URL}/article/${article.slug}`}
+        ogType="article"
+        ogImage={article.coverImage || `${SITE_URL}/og/og-default.png`}
+        ogImageAlt={article.title}
+        articlePublishedTime={article.publishedAt}
+        articleModifiedTime={article.lastModified || article.publishedAt}
+        articleSection={article.category}
+        articleTags={article.tags}
+        keywords={[
+          ...(article.keywords || []),
+          ...article.tags,
+          article.category,
+          'Mohamed Mydeen',
+          'Mydeen Dev',
+        ].join(', ')}
+        schema={[
+          articleSchema(article),
+          breadcrumbSchema([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Blog', url: `${SITE_URL}/blog` },
+            { name: article.category, url: `${SITE_URL}/category/${article.category.toLowerCase().replace(/\s+/g, '-')}` },
+            { name: article.title, url: `${SITE_URL}/article/${article.slug}` },
+          ]),
+          personSchema(),
+        ]}
+      />
       <ReadingProgress />
       <main className="pt-20 pb-20 min-h-screen">
         {/* Gradient accent */}

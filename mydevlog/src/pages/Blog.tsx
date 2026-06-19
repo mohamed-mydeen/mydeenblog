@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 import ArticleCard from '../components/ui/ArticleCard';
 import { articles, getAllCategories, getAllTags } from '../data/articles';
+import SEOHead from '../seo/SEOHead';
+import { blogSchema, breadcrumbSchema, SITE_URL } from '../seo/schemas';
 
 const Blog: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -35,6 +37,19 @@ const Blog: React.FC = () => {
 
   return (
     <main className="pt-24 pb-20 min-h-screen">
+      <SEOHead
+        title="All Articles — React, AI, JavaScript | Mohamed Mydeen"
+        description="Explore in-depth technical articles on full-stack engineering, AI implementation, React performance, backend systems, and software engineering by Mohamed Mydeen."
+        canonical={`${SITE_URL}/blog`}
+        schema={[
+          blogSchema(),
+          breadcrumbSchema([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Blog', url: `${SITE_URL}/blog` },
+          ]),
+        ]}
+        keywords="Mohamed Mydeen blog, tech blog, software engineering blog, React tutorial, AI engineering, FastAPI, TypeScript, JavaScript"
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* Page Header */}

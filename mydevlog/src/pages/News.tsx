@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RefreshCw, ExternalLink, Flame, Clock, Radio } from 'lucide-react';
+import SEOHead from '../seo/SEOHead';
+import { breadcrumbSchema, SITE_URL } from '../seo/schemas';
 
 interface NewsItem {
   id: number;
@@ -95,6 +97,17 @@ const News: React.FC = () => {
 
   return (
     <main className="pt-24 pb-20 min-h-screen">
+      <SEOHead
+        title="Live Tech Intelligence Feed"
+        description="A real-time, curated feed of technology news, engineering breakthroughs, and software community discussions."
+        canonical={`${SITE_URL}/news`}
+        schema={[
+          breadcrumbSchema([
+            { name: 'Home', url: SITE_URL },
+            { name: 'News', url: `${SITE_URL}/news` },
+          ]),
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
         {/* Page Header */}

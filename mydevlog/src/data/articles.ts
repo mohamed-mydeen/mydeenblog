@@ -8,10 +8,17 @@ export interface Article {
   tags: string[];
   readingTime: number;
   publishedAt: string;
+  lastModified?: string;
   featured: boolean;
   trending: boolean;
   coverGradient: string;
   icon: string;
+  // SEO fields
+  seoTitle?: string;           // Custom <title> tag (if different from title)
+  seoDescription?: string;     // Explicit meta description
+  coverImage?: string;         // Absolute URL for OG image
+  keywords?: string[];         // Article-level keyword list
+  faq?: { q: string; a: string }[];  // FAQ schema entries
 }
 
 export const articles: Article[] = [
@@ -28,6 +35,10 @@ export const articles: Article[] = [
     trending: true,
     coverGradient: 'from-violet-500 via-indigo-500 to-blue-600',
     icon: '⚡',
+    lastModified: '2025-05-15',
+    seoTitle: 'Building Production-Ready AI APIs with FastAPI & Groq — A Deep Dive',
+    seoDescription: 'Learn how to architect high-throughput conversational AI systems using FastAPI async streaming and Groq ultra-fast inference. Real patterns from shipping Mydeen AI in production.',
+    keywords: ['FastAPI tutorial', 'Groq API', 'Python AI API', 'streaming AI', 'production AI backend', 'LLM streaming', 'FastAPI async'],
     content: `
 ## Why FastAPI for AI?
 
@@ -110,6 +121,10 @@ The combination of FastAPI's async I/O, Groq's inference speed, and Server-Sent 
     trending: false,
     coverGradient: 'from-emerald-500 via-teal-500 to-cyan-600',
     icon: '🔄',
+    lastModified: '2025-05-01',
+    seoTitle: 'Real-Time Features at Scale: Supabase Architecture Patterns',
+    seoDescription: 'Design real-time subscription systems with Supabase that scale gracefully — channel management, optimistic UI, and conflict resolution strategies for production apps.',
+    keywords: ['Supabase real-time', 'PostgreSQL real-time', 'Supabase channels', 'optimistic UI', 'real-time architecture', 'Supabase tutorial'],
     content: `
 ## The Real-Time Challenge
 
@@ -171,6 +186,10 @@ This pattern reduces perceived latency to zero.
     trending: true,
     coverGradient: 'from-blue-500 via-cyan-500 to-teal-500',
     icon: '⚛️',
+    lastModified: '2025-04-20',
+    seoTitle: 'React Performance Patterns I Actually Use in Production — 2025 Guide',
+    seoDescription: 'Practical React performance techniques beyond basic memoization — concurrent features, selective Zustand subscriptions, virtual rendering, and profiling methodology used in real production apps.',
+    keywords: ['React performance 2025', 'React optimization', 'useMemo useCallback', 'React profiler', 'state colocation', 'Zustand subscriptions'],
     content: `
 ## The Problem with Generic Advice
 
@@ -239,6 +258,10 @@ const onRender = (id, phase, actualDuration) => {
     trending: false,
     coverGradient: 'from-orange-500 via-amber-500 to-yellow-500',
     icon: '📱',
+    lastModified: '2025-04-05',
+    seoTitle: 'Building Offline-First PWAs: Architecture & Trade-offs (Complete Guide)',
+    seoDescription: 'Comprehensive guide to service worker strategies, cache invalidation, background sync, and the real trade-offs of offline-first PWA architecture. Lessons from Mydeen AI as a PWA.',
+    keywords: ['PWA tutorial', 'offline first architecture', 'service worker strategies', 'Workbox tutorial', 'progressive web app', 'background sync PWA'],
     content: `
 ## Why Offline-First Matters
 
@@ -295,6 +318,10 @@ self.addEventListener('sync', (event) => {
     trending: true,
     coverGradient: 'from-rose-500 via-pink-500 to-fuchsia-600',
     icon: '🔒',
+    lastModified: '2025-03-15',
+    seoTitle: 'Detecting Fraudulent URLs with Machine Learning — SafeCheck Engineering',
+    seoDescription: 'The engineering story behind SafeCheck: feature engineering, XGBoost model selection (94.2% accuracy), Streamlit deployment, and lessons from building a production ML fraud detection pipeline.',
+    keywords: ['URL fraud detection ML', 'XGBoost tutorial', 'machine learning Python', 'fraud detection system', 'SafeCheck', 'feature engineering ML', 'Streamlit deployment'],
     content: `
 ## The Problem Space
 
@@ -360,6 +387,10 @@ risk_score = proba[:, 1]  # Probability of being fraudulent
     trending: false,
     coverGradient: 'from-blue-600 via-indigo-600 to-violet-700',
     icon: '🔷',
+    lastModified: '2025-02-25',
+    seoTitle: 'TypeScript Patterns That Actually Matter in 2025 — Advanced Guide',
+    seoDescription: 'Go beyond basic generics — template literal types, conditional inference, branded types for domain modeling, and discriminated union patterns used daily in production TypeScript codebases.',
+    keywords: ['TypeScript advanced patterns 2025', 'branded types TypeScript', 'discriminated unions TypeScript', 'TypeScript template literal types', 'TypeScript generics'],
     content: `
 ## Branded Types for Domain Safety
 

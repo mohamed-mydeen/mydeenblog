@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Send, Github, Linkedin, CheckCircle, Loader2 } from 'lucide-react';
+import SEOHead from '../seo/SEOHead';
+import { breadcrumbSchema, SITE_URL } from '../seo/schemas';
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
@@ -15,6 +17,17 @@ const Contact: React.FC = () => {
 
   return (
     <main className="pt-24 pb-20 min-h-screen">
+      <SEOHead
+        title="Contact Mohamed Mydeen"
+        description="Get in touch with Mohamed Mydeen for collaborations, project ideas, or to discuss software engineering, React, and AI."
+        canonical={`${SITE_URL}/contact`}
+        schema={[
+          breadcrumbSchema([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Contact', url: `${SITE_URL}/contact` },
+          ]),
+        ]}
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
         {/* Header */}

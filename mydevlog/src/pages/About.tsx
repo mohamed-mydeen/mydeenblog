@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Github } from 'lucide-react';
+import SEOHead from '../seo/SEOHead';
+import { profilePageSchema, breadcrumbSchema, SITE_URL } from '../seo/schemas';
 
 const SKILLS = [
   { icon: '⚛️', label: 'React & TypeScript', desc: 'Production-grade UI engineering' },
@@ -16,6 +18,19 @@ const SKILLS = [
 
 const About: React.FC = () => (
   <main className="pt-24 pb-20 min-h-screen">
+    <SEOHead
+      title="About Mohamed Mydeen — Full Stack & AI Engineer"
+      description="The personal journey and professional biography of Mohamed Mydeen, a Full Stack and AI Engineer passionate about React, FastAPI, and building products."
+      canonical={`${SITE_URL}/about`}
+      schema={[
+        profilePageSchema(),
+        breadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'About', url: `${SITE_URL}/about` },
+        ]),
+      ]}
+      keywords="Mohamed Mydeen, biography, Full Stack Engineer, AI Developer, Melapalayam, React, FastAPI, profile"
+    />
     <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
       {/* Header */}
