@@ -33,7 +33,7 @@ export default defineConfig({
     react(),
     // Auto-generate sitemap.xml with all static + dynamic routes
     sitemap({
-      hostname: 'https://mydeen.vercel.app',
+      hostname: 'https://mydeenblog.vercel.app',
       dynamicRoutes,
       exclude: ['/404', '/news'],
       changefreq: 'weekly',

@@ -1,6 +1,6 @@
 import type { Article } from '../data/articles';
 
-export const SITE_URL = 'https://mydeen.vercel.app';
+export const SITE_URL = 'https://mydeenblog.vercel.app';
 export const SITE_NAME = 'Mydeen Dev';
 
 // Brand Identity
@@ -111,6 +111,7 @@ export const personSchema = () => ({
     AUTHOR_GITHUB,
     AUTHOR_LINKEDIN,
     AUTHOR_AI_PROJECT,
+    'https://mydeen.vercel.app',          // portfolio
     `${SITE_URL}/about`,
     `${SITE_URL}/author/mohamed-mydeen`,
     `${SITE_URL}/who-is-mohamed-mydeen`,
