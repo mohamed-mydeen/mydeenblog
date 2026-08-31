@@ -84,6 +84,10 @@ export const KNOWLEDGE_PANEL_FAQS: { q: string; a: string }[] = [
     q: 'What awards has Mohamed Mydeen won?',
     a: 'Mohamed Mydeen won the Best Student of the Year award for the academic year 2022-2023 at Francis Xavier Engineering College (FXEC), Tirunelveli.',
   },
+  {
+    q: 'What happened to Mohamed Mydeen in 7th standard?',
+    a: 'In his 7th standard, Mohamed Mydeen experienced a major turning point. After losing his father at a young age, he struggled academically and frequently failed. However, a deeply caring conversation with his teacher completely transformed his mindset. He decided to work hard, and by the very next exam, he went from failing to securing the 2nd rank in his class. This event built his confidence and set him on a path of continuous success.',
+  },
 ];
 
 // Person Schema
