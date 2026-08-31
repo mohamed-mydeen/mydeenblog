@@ -92,6 +92,16 @@ const Footer: React.FC = () => (
                 Mydeen AI <ArrowUpRight size={12} />
               </a>
             </li>
+            <li>
+              <a
+                href="https://mydeen.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+              >
+                Portfolio <ArrowUpRight size={12} />
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -19,9 +19,15 @@ export interface Article {
   coverImage?: string;         // Absolute URL for OG image
   keywords?: string[];         // Article-level keyword list
   faq?: { q: string; a: string }[];  // FAQ schema entries
+  // Series fields
+  seriesId?: string;
+  seriesIndex?: number;
 }
 
+import { devopsArticles } from './devops-series';
+
 export const articles: Article[] = [
+  ...devopsArticles,
   {
     id: '1',
     slug: 'building-scalable-ai-with-fastapi-groq',
@@ -443,3 +449,5 @@ export const getArticlesByCategory = (category: string) =>
   articles.filter(a => a.category === category);
 export const getAllCategories = () => [...new Set(articles.map(a => a.category))];
 export const getAllTags = () => [...new Set(articles.flatMap(a => a.tags))];
+export const getSeriesArticles = (seriesId: string) => 
+  articles.filter(a => a.seriesId === seriesId).sort((a, b) => (a.seriesIndex || 0) - (b.seriesIndex || 0));

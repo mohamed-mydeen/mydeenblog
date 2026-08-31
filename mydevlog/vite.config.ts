@@ -89,6 +89,18 @@ export default defineConfig({
   // SSG: vite-ssg looks for this to understand routes
   ssgOptions: {
     script: 'async',
+    includedRoutes() {
+      // Define the base static routes + all dynamic routes
+      return [
+        '/',
+        '/blog',
+        '/about',
+        '/contact',
+        '/newsletter',
+        '/news',
+        ...dynamicRoutes
+      ];
+    },
     crittersOptions: {
       // Inline critical CSS for faster LCP
       preload: 'swap',

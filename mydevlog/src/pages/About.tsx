@@ -261,6 +261,40 @@ const About: React.FC = () => (
         </p>
       </motion.section>
 
+      {/* Faith & Reflection */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mb-14"
+      >
+        <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-5 tracking-tight">Faith & Reflection</h2>
+        <div className="space-y-6 text-[15px] text-slate-600 dark:text-slate-400 leading-[1.85]">
+          <p>
+            My journey has taught me that transformation begins with faith, continues through discipline, and becomes meaningful through sincere effort. I believe that whatever challenges life places before us, we should continue striving, remain patient, and place our trust in Allah.
+          </p>
+          
+          <blockquote className="border-l-4 border-indigo-500/30 pl-4 py-1 italic space-y-1">
+            <p className="text-slate-800 dark:text-slate-200 font-medium">“And that there is not for man except that [good] for which he strives.”</p>
+            <footer className="text-[13px] text-slate-500">— <cite>Qur'an 53:39</cite></footer>
+          </blockquote>
+
+          <blockquote className="border-l-4 border-indigo-500/30 pl-4 py-1 italic space-y-1">
+            <p className="text-slate-800 dark:text-slate-200 font-medium">“The strong believer is better and more beloved to Allah than the weak believer, while there is good in both.”</p>
+            <footer className="text-[13px] text-slate-500">— <cite>Sahih Muslim</cite></footer>
+          </blockquote>
+
+          <p>
+            These teachings remind me that success is not only measured by what we achieve, but also by the faith, character, effort, and purpose behind our journey.
+          </p>
+
+          <p className="font-medium text-slate-800 dark:text-slate-200">
+            May Allah guide my journey, increase me in beneficial knowledge, keep me steadfast, and allow my work to be a source of benefit to others. Ameen.
+          </p>
+        </div>
+      </motion.section>
+
       {/* Skills Grid */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}

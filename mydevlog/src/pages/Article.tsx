@@ -2,7 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Calendar, Link2, ArrowRight } from 'lucide-react';
-import { getArticleBySlug, articles } from '../data/articles';
+import { getArticleBySlug, articles, getSeriesArticles } from '../data/articles';
 import { useTheme } from '../context/ThemeContext';
 import ReadingProgress from '../components/ui/ReadingProgress';
 import ArticleCard from '../components/ui/ArticleCard';
@@ -96,15 +96,22 @@ const Article: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([]);
   const [activeId, setActiveId] = useState<string>('');
+  
+  const seriesArticles = article?.seriesId ? getSeriesArticles(article.seriesId) : [];
+  const currentIndex = seriesArticles.findIndex(a => a.id === article?.id);
+  const prevArticle = currentIndex > 0 ? seriesArticles[currentIndex - 1] : null;
+  const nextArticle = currentIndex < seriesArticles.length - 1 ? seriesArticles[currentIndex + 1] : null;
 
   // Claps State
   const [claps, setClaps] = useState<number>(() => {
     if (!article) return 0;
+    if (typeof window === 'undefined') return 0;
     const stored = localStorage.getItem(`claps-${article.id}`);
     return stored ? parseInt(stored, 10) : 0;
   });
   const [hasClapped, setHasClapped] = useState<boolean>(() => {
     if (!article) return false;
+    if (typeof window === 'undefined') return false;
     const stored = localStorage.getItem(`has-clapped-${article.id}`);
     return stored === 'true';
   });
@@ -250,11 +257,33 @@ const Article: React.FC = () => {
           </h3>
         );
       }
+      // Lists
+      else if (line.trim().startsWith('- ') || line.trim().startsWith('* ')) {
+        const listItems: string[] = [];
+        while (i < lines.length && (lines[i].trim().startsWith('- ') || lines[i].trim().startsWith('* '))) {
+          const itemText = lines[i].trim().slice(2);
+          const processed = itemText
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/`([^`]+)`/g, '<code class="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded-md text-[0.875em] font-mono">$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">$1</a>');
+          listItems.push(processed);
+          i++;
+        }
+        elements.push(
+          <ul key={i} className="list-disc pl-6 mb-6 space-y-2 text-slate-700 dark:text-slate-300 text-[16px] leading-[1.85] marker:text-indigo-400">
+            {listItems.map((item, idx) => (
+              <li key={idx} dangerouslySetInnerHTML={{ __html: item }} />
+            ))}
+          </ul>
+        );
+        continue;
+      }
       // Paragraphs
       else if (line.trim()) {
         const processed = line
           .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-          .replace(/`([^`]+)`/g, '<code class="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded-md text-[0.875em] font-mono">$1</code>');
+          .replace(/`([^`]+)`/g, '<code class="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 px-1.5 py-0.5 rounded-md text-[0.875em] font-mono">$1</code>')
+          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">$1</a>');
         elements.push(
           <p key={i} className="text-slate-700 dark:text-slate-300 text-[16px] leading-[1.85] mb-4"
              dangerouslySetInnerHTML={{ __html: processed }} />
@@ -427,6 +456,47 @@ const Article: React.FC = () => {
                 <span>{copied ? 'Link Copied!' : 'Share Article'}</span>
               </button>
             </div>
+
+            {/* Series Navigation UI */}
+            {seriesArticles.length > 0 && (
+              <div className="mt-14 p-6 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/10 border border-indigo-100 dark:border-indigo-900/30">
+                <h3 className="font-display font-bold text-lg text-slate-900 dark:text-white mb-4">
+                  DevOps Learning Series
+                </h3>
+                <div className="space-y-2 mb-6">
+                  {seriesArticles.map((a, idx) => (
+                    <Link
+                      key={a.id}
+                      to={`/article/${a.slug}`}
+                      className={`flex items-center gap-3 p-2.5 rounded-lg text-[14px] transition-colors ${
+                        a.id === article.id 
+                          ? 'bg-indigo-600 text-white font-semibold shadow-md shadow-indigo-200 dark:shadow-none' 
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-white/5 hover:text-indigo-600 dark:hover:text-indigo-400'
+                      }`}
+                    >
+                      <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center bg-black/10 dark:bg-white/10 text-[11px] font-bold">
+                        {idx + 1}
+                      </span>
+                      {a.title}
+                    </Link>
+                  ))}
+                </div>
+                
+                {/* Prev/Next Navigation */}
+                <div className="flex items-center justify-between pt-5 border-t border-indigo-100 dark:border-indigo-900/30">
+                  {prevArticle ? (
+                    <Link to={`/article/${prevArticle.slug}`} className="flex items-center gap-2 text-[13px] font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                      <ArrowLeft size={16} /> Previous Article
+                    </Link>
+                  ) : <div />}
+                  {nextArticle ? (
+                    <Link to={`/article/${nextArticle.slug}`} className="flex items-center gap-2 text-[13px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
+                      Next Article <ArrowRight size={16} />
+                    </Link>
+                  ) : <div />}
+                </div>
+              </div>
+            )}
 
             {/* Author Card */}
             <motion.div
