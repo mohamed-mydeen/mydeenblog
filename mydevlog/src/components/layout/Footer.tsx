@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Twitter, Linkedin, ArrowUpRight, Rss } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, Phone, ArrowUpRight } from 'lucide-react';
+import {
+  AUTHOR_GITHUB,
+  AUTHOR_LINKEDIN,
+  AUTHOR_INSTAGRAM,
+  AUTHOR_EMAIL,
+  AUTHOR_PHONE,
+} from '../../seo/schemas';
 
 const LINKS = {
   writing: [
@@ -30,18 +37,19 @@ const Footer: React.FC = () => (
           <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xs mb-6">
             A personal tech journal by Mohamed Mydeen — writing about AI, full-stack engineering, and building products that matter.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5">
             {[
-              { icon: Github, href: 'https://github.com/mohamed-mydeen', label: 'GitHub' },
-              { icon: Twitter, href: '#', label: 'Twitter' },
-              { icon: Linkedin, href: '#', label: 'LinkedIn' },
-              { icon: Rss, href: '#', label: 'RSS Feed' },
+              { icon: Github, href: AUTHOR_GITHUB, label: 'GitHub' },
+              { icon: Instagram, href: AUTHOR_INSTAGRAM, label: 'Instagram' },
+              { icon: Linkedin, href: AUTHOR_LINKEDIN, label: 'LinkedIn' },
+              { icon: Mail, href: `mailto:${AUTHOR_EMAIL}`, label: 'Email' },
+              { icon: Phone, href: `tel:${AUTHOR_PHONE.replace(/\s+/g, '')}`, label: 'Phone' },
             ].map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
                 href={href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 aria-label={label}
                 className="w-9 h-9 rounded-lg border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/20 hover:bg-white dark:hover:bg-white/5 transition-all duration-200"
               >

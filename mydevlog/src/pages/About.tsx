@@ -1,9 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Github } from 'lucide-react';
+import { ArrowUpRight, Github, Instagram, Mail, Phone, Linkedin } from 'lucide-react';
 import SEOHead from '../seo/SEOHead';
-import { profilePageSchema, breadcrumbSchema, SITE_URL } from '../seo/schemas';
+import {
+  profilePageSchema,
+  breadcrumbSchema,
+  SITE_URL,
+  AUTHOR_EMAIL,
+  AUTHOR_PHONE,
+  AUTHOR_INSTAGRAM,
+  AUTHOR_LINKEDIN,
+  AUTHOR_GITHUB,
+} from '../seo/schemas';
 
 const SKILLS = [
   { icon: '⚛️', label: 'React & TypeScript', desc: 'Production-grade UI engineering' },
@@ -59,22 +68,42 @@ const About: React.FC = () => (
             <p className="text-[15px] text-indigo-600 dark:text-indigo-400 font-semibold mb-4">
               Full Stack & AI Engineer · BTech Computer Science
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2.5">
               <a
-                href="https://github.com/mohamed-mydeen"
+                href={AUTHOR_GITHUB}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[13px] font-semibold hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[12px] font-semibold hover:bg-slate-700 dark:hover:bg-slate-100 transition-colors"
               >
-                <Github size={14} /> GitHub
+                <Github size={13} /> GitHub
+              </a>
+              <a
+                href={AUTHOR_INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-pink-200 dark:border-pink-500/20 text-pink-600 dark:text-pink-400 bg-pink-50/50 dark:bg-pink-950/20 text-[12px] font-semibold hover:bg-pink-100/60 dark:hover:bg-pink-950/40 transition-colors"
+              >
+                <Instagram size={13} /> Instagram
+              </a>
+              <a
+                href={`mailto:${AUTHOR_EMAIL}`}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-950/20 text-[12px] font-semibold hover:bg-indigo-100/60 dark:hover:bg-indigo-950/40 transition-colors"
+              >
+                <Mail size={13} /> Email
+              </a>
+              <a
+                href={`tel:${AUTHOR_PHONE.replace(/\s+/g, '')}`}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 text-[12px] font-semibold hover:bg-emerald-100/60 dark:hover:bg-emerald-950/40 transition-colors"
+              >
+                <Phone size={13} /> Phone
               </a>
               <a
                 href="https://mydeenai.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/20 text-slate-700 dark:text-slate-300 text-[13px] font-semibold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/20 text-slate-700 dark:text-slate-300 text-[12px] font-semibold hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
               >
-                Mydeen AI <ArrowUpRight size={13} />
+                Mydeen AI <ArrowUpRight size={12} />
               </a>
             </div>
           </div>
@@ -97,7 +126,7 @@ const About: React.FC = () => (
           </p>
 
           <p>
-            I began my early education in Melapalayam, completing my LKG and UKG there. Later, I started my 1st standard in Kayalpatnam, but life brought an unexpected and painful turning point at a very young age. During that time, I lost my father. At an age where I could not fully understand the meaning of such a loss, life had already begun teaching me difficult lessons.
+            I began my early education in Melapalayam, completing my LKG and UKG there. Later, I started my 1st standard in Kayalpatnam, but life brought an unexpected turning point due to unforeseen personal circumstances at a very young age. Facing such challenges so early in life, it began teaching me difficult yet valuable lessons of resilience.
           </p>
 
           <p>
@@ -321,6 +350,74 @@ const About: React.FC = () => (
               </div>
             </motion.div>
           ))}
+        </div>
+      </motion.section>
+
+      {/* Direct Contact & Social */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mb-14"
+      >
+        <h2 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-6 tracking-tight">Direct Contact & Social</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a
+            href={`mailto:${AUTHOR_EMAIL}`}
+            className="flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-ink-900 hover:border-indigo-300 dark:hover:border-indigo-500/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+          >
+            <div className="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-500/20 flex items-center justify-center flex-shrink-0">
+              <Mail size={18} className="text-indigo-500" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Email</p>
+              <p className="text-[14px] font-semibold text-slate-900 dark:text-white truncate">{AUTHOR_EMAIL}</p>
+            </div>
+          </a>
+
+          <a
+            href={`tel:${AUTHOR_PHONE.replace(/\s+/g, '')}`}
+            className="flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-ink-900 hover:border-emerald-300 dark:hover:border-emerald-500/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+          >
+            <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+              <Phone size={18} className="text-emerald-500" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Phone / WhatsApp</p>
+              <p className="text-[14px] font-semibold text-slate-900 dark:text-white truncate">{AUTHOR_PHONE}</p>
+            </div>
+          </a>
+
+          <a
+            href={AUTHOR_INSTAGRAM}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-ink-900 hover:border-pink-300 dark:hover:border-pink-500/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+          >
+            <div className="w-11 h-11 rounded-xl bg-pink-50 dark:bg-pink-950/40 border border-pink-100 dark:border-pink-500/20 flex items-center justify-center flex-shrink-0">
+              <Instagram size={18} className="text-pink-500" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Instagram</p>
+              <p className="text-[14px] font-semibold text-slate-900 dark:text-white truncate">@mohamed_ukasha</p>
+            </div>
+          </a>
+
+          <a
+            href={AUTHOR_LINKEDIN}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-ink-900 hover:border-sky-300 dark:hover:border-sky-500/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+          >
+            <div className="w-11 h-11 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-500/20 flex items-center justify-center flex-shrink-0">
+              <Linkedin size={18} className="text-sky-500" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">LinkedIn</p>
+              <p className="text-[14px] font-semibold text-slate-900 dark:text-white truncate">mohamed-mydeen4262</p>
+            </div>
+          </a>
         </div>
       </motion.section>
 

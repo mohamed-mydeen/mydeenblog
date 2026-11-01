@@ -22,6 +22,9 @@ export const AUTHOR_ALTERNATE_NAMES = [
 export const AUTHOR_GITHUB     = 'https://github.com/mohamed-mydeen';
 export const AUTHOR_LINKEDIN   = 'https://linkedin.com/in/mohamed-mydeen4262';
 export const AUTHOR_TWITTER    = 'https://twitter.com/mohamedmydeen';
+export const AUTHOR_INSTAGRAM  = 'https://instagram.com/mohamed_ukasha';
+export const AUTHOR_EMAIL      = 'mohamedmydeen.sd@gmail.com';
+export const AUTHOR_PHONE      = '+91 9344990461';
 export const AUTHOR_WEBSITE    = SITE_URL;
 export const AUTHOR_AI_PROJECT = 'https://mydeenai.vercel.app/';
 
@@ -86,7 +89,7 @@ export const KNOWLEDGE_PANEL_FAQS: { q: string; a: string }[] = [
   },
   {
     q: 'What happened to Mohamed Mydeen in 7th standard?',
-    a: 'In his 7th standard, Mohamed Mydeen experienced a major turning point. After losing his father at a young age, he struggled academically and frequently failed. However, a deeply caring conversation with his teacher completely transformed his mindset. He decided to work hard, and by the very next exam, he went from failing to securing the 2nd rank in his class. This event built his confidence and set him on a path of continuous success.',
+    a: 'In his 7th standard, Mohamed Mydeen experienced a major turning point. After navigating unforeseen personal circumstances and early academic struggles, a deeply caring conversation with his teacher completely transformed his mindset. He decided to work hard, and by the very next exam, he went from failing to securing the 2nd rank in his class. This event built his confidence and set him on a path of continuous success.',
   },
 ];
 
@@ -111,9 +114,12 @@ export const personSchema = () => ({
     width: 400,
     height: 400,
   },
+  email: `mailto:${AUTHOR_EMAIL}`,
+  telephone: AUTHOR_PHONE,
   sameAs: [
     AUTHOR_GITHUB,
     AUTHOR_LINKEDIN,
+    AUTHOR_INSTAGRAM,
     AUTHOR_AI_PROJECT,
     'https://mydeen.vercel.app',          // portfolio
     `${SITE_URL}/about`,

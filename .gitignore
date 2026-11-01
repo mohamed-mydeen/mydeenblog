@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build & SSG
+.vite-react-ssg-temp/
+*.log
+.DS_Store
+
+# Generated SSG pages & assets in dist
+mydevlog/dist/about.html
+mydevlog/dist/article/
+mydevlog/dist/assets/
+mydevlog/dist/author/
+mydevlog/dist/blog.html
+mydevlog/dist/building-mydeen-ai.html
+mydevlog/dist/category/
+mydevlog/dist/contact.html
+mydevlog/dist/from-failure-to-class-topper.html
+mydevlog/dist/index.html.gz
+mydevlog/dist/my-story.html
+mydevlog/dist/news.html
+mydevlog/dist/newsletter.html
+mydevlog/dist/static-loader-data/
+mydevlog/dist/static-loader-data-manifest-*.json
+mydevlog/dist/tag/
+mydevlog/dist/who-is-mohamed-mydeen.html
+mydevlog/dist/.vite/

@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send, Github, Linkedin, CheckCircle, Loader2 } from 'lucide-react';
+import { Mail, Send, Github, Linkedin, Instagram, Phone, CheckCircle, Loader2 } from 'lucide-react';
 import SEOHead from '../seo/SEOHead';
-import { breadcrumbSchema, SITE_URL } from '../seo/schemas';
+import {
+  breadcrumbSchema,
+  SITE_URL,
+  AUTHOR_EMAIL,
+  AUTHOR_PHONE,
+  AUTHOR_INSTAGRAM,
+  AUTHOR_LINKEDIN,
+  AUTHOR_GITHUB,
+} from '../seo/schemas';
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
@@ -136,34 +144,60 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="lg:col-span-2 space-y-6"
           >
-            <div className="p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-ink-900">
+            {/* Direct Email Card */}
+            <a
+              href={`mailto:${AUTHOR_EMAIL}`}
+              className="block p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-ink-900 hover:border-indigo-200 dark:hover:border-indigo-500/30 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+            >
               <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-500/20 flex items-center justify-center mb-4">
                 <Mail size={18} className="text-indigo-500" />
               </div>
               <h3 className="font-display font-semibold text-slate-900 dark:text-white text-[14px] mb-1">Email</h3>
-              <p className="text-[13px] text-slate-500 dark:text-slate-400">Best for detailed conversations and collaborations.</p>
-            </div>
+              <p className="text-[13px] font-medium text-indigo-600 dark:text-indigo-400 break-all mb-1">{AUTHOR_EMAIL}</p>
+              <p className="text-[12px] text-slate-500 dark:text-slate-400">Best for detailed conversations and project collaborations.</p>
+            </a>
 
-            {[
-              { icon: Github, label: 'GitHub', desc: 'See my code & projects', href: 'https://github.com/mohamed-mydeen' },
-              { icon: Linkedin, label: 'LinkedIn', desc: 'Connect professionally', href: '#' },
-            ].map(({ icon: Icon, label, desc, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-ink-900 hover:border-indigo-200 dark:hover:border-indigo-500/30 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white dark:bg-ink-800 border border-slate-200 dark:border-white/10 flex items-center justify-center">
-                  <Icon size={16} className="text-slate-600 dark:text-slate-400" />
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900 dark:text-white text-[13px]">{label}</p>
-                  <p className="text-[12px] text-slate-500 dark:text-slate-500">{desc}</p>
-                </div>
-              </a>
-            ))}
+            {/* Direct Phone Card */}
+            <a
+              href={`tel:${AUTHOR_PHONE.replace(/\s+/g, '')}`}
+              className="block p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-ink-900 hover:border-emerald-200 dark:hover:border-emerald-500/30 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+            >
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-500/20 flex items-center justify-center mb-4">
+                <Phone size={18} className="text-emerald-500" />
+              </div>
+              <h3 className="font-display font-semibold text-slate-900 dark:text-white text-[14px] mb-1">Phone / WhatsApp</h3>
+              <p className="text-[13px] font-medium text-emerald-600 dark:text-emerald-400 mb-1">{AUTHOR_PHONE}</p>
+              <p className="text-[12px] text-slate-500 dark:text-slate-400">Direct call or message for quick discussions.</p>
+            </a>
+
+            {/* Social & Profiles */}
+            <div className="space-y-3 pt-2">
+              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">Social Profiles</h4>
+              {[
+                { icon: Instagram, label: 'Instagram', value: '@mohamed_ukasha', desc: 'Follow & DM on Instagram', href: AUTHOR_INSTAGRAM, iconColor: 'text-pink-500' },
+                { icon: Linkedin, label: 'LinkedIn', value: 'mohamed-mydeen4262', desc: 'Connect professionally', href: AUTHOR_LINKEDIN, iconColor: 'text-sky-500' },
+                { icon: Github, label: 'GitHub', value: 'mohamed-mydeen', desc: 'See my code & projects', href: AUTHOR_GITHUB, iconColor: 'text-slate-700 dark:text-slate-300' },
+              ].map(({ icon: Icon, label, value, desc, href, iconColor }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50 dark:bg-ink-900 hover:border-indigo-200 dark:hover:border-indigo-500/30 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-ink-800 border border-slate-200 dark:border-white/10 flex items-center justify-center flex-shrink-0">
+                    <Icon size={16} className={iconColor} />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <p className="font-semibold text-slate-900 dark:text-white text-[13px]">{label}</p>
+                      <span className="text-[11px] text-indigo-500 dark:text-indigo-400 font-mono truncate">{value}</span>
+                    </div>
+                    <p className="text-[12px] text-slate-500 dark:text-slate-500">{desc}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Code2, Cpu, GraduationCap, Award, ArrowRight, Github, Linkedin, ExternalLink } from 'lucide-react';
+import { User, Code2, Cpu, GraduationCap, Award, ArrowRight, Github, Linkedin, Instagram, Mail, Phone, ExternalLink } from 'lucide-react';
 import SEOHead from '../seo/SEOHead';
 import {
   SITE_URL, AUTHOR_KEYWORDS, KNOWLEDGE_PANEL_FAQS,
+  AUTHOR_EMAIL, AUTHOR_PHONE, AUTHOR_INSTAGRAM, AUTHOR_LINKEDIN, AUTHOR_GITHUB,
   personSchema, profilePageSchema, faqSchema, breadcrumbSchema,
 } from '../seo/schemas';
 
@@ -46,18 +47,30 @@ const WhoIsMohamedMydeen: React.FC = () => {
               Also known as <strong className="text-slate-700 dark:text-slate-200">Mohamed Ukasha</strong>.
               Full Stack & AI Engineer · B.Tech CSBS · FXEC, Tirunelveli.
             </p>
-            <div className="flex flex-wrap gap-3 mt-4">
-              <a href="https://github.com/mohamed-mydeen" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 text-[13px] font-medium hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
-                <Github size={14} /> GitHub
+            <div className="flex flex-wrap gap-2.5 mt-4">
+              <a href={AUTHOR_GITHUB} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 text-[12px] font-medium hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                <Github size={13} /> GitHub
               </a>
-              <a href="https://linkedin.com/in/mohamed-mydeen4262" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 text-[13px] font-medium hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
-                <Linkedin size={14} /> LinkedIn
+              <a href={AUTHOR_INSTAGRAM} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pink-50 dark:bg-pink-950/20 text-pink-600 dark:text-pink-400 text-[12px] font-medium hover:bg-pink-100 dark:hover:bg-pink-950/40 transition-colors">
+                <Instagram size={13} /> Instagram
+              </a>
+              <a href={`mailto:${AUTHOR_EMAIL}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/20 text-indigo-600 dark:text-indigo-400 text-[12px] font-medium hover:bg-indigo-100 dark:hover:bg-indigo-950/40 transition-colors">
+                <Mail size={13} /> Email
+              </a>
+              <a href={`tel:${AUTHOR_PHONE.replace(/\s+/g, '')}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 text-[12px] font-medium hover:bg-emerald-100 dark:hover:bg-emerald-950/40 transition-colors">
+                <Phone size={13} /> Phone
+              </a>
+              <a href={AUTHOR_LINKEDIN} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 text-[12px] font-medium hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
+                <Linkedin size={13} /> LinkedIn
               </a>
               <a href="https://mydeenai.vercel.app" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[13px] font-medium hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors">
-                <ExternalLink size={14} /> Mydeen AI
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[12px] font-medium hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors">
+                <ExternalLink size={13} /> Mydeen AI
               </a>
             </div>
           </div>
@@ -69,6 +82,9 @@ const WhoIsMohamedMydeen: React.FC = () => {
           {[
             { icon: <User size={18} />, label: 'Full Name', value: 'Mohamed Mydeen Shahabudeen' },
             { icon: <User size={18} />, label: 'Also Known As', value: 'Mohamed Ukasha · Mydeen' },
+            { icon: <Mail size={18} />, label: 'Email', value: AUTHOR_EMAIL },
+            { icon: <Phone size={18} />, label: 'Phone', value: AUTHOR_PHONE },
+            { icon: <Instagram size={18} />, label: 'Instagram', value: '@mohamed_ukasha' },
             { icon: <GraduationCap size={18} />, label: 'College', value: 'Francis Xavier Engineering College (FXEC)' },
             { icon: <Code2 size={18} />, label: 'Degree', value: 'B.Tech CSBS — Tirunelveli, Tamil Nadu' },
             { icon: <Cpu size={18} />, label: 'Role', value: 'Full Stack & AI Engineer' },
@@ -76,9 +92,9 @@ const WhoIsMohamedMydeen: React.FC = () => {
           ].map(fact => (
             <div key={fact.label} className="flex items-start gap-3 p-5 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-white dark:bg-ink-900">
               <span className="text-indigo-500 mt-0.5">{fact.icon}</span>
-              <div>
+              <div className="min-w-0">
                 <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-0.5">{fact.label}</p>
-                <p className="text-[14px] font-semibold text-slate-800 dark:text-slate-100">{fact.value}</p>
+                <p className="text-[14px] font-semibold text-slate-800 dark:text-slate-100 truncate">{fact.value}</p>
               </div>
             </div>
           ))}
