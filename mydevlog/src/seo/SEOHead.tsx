@@ -23,7 +23,7 @@ interface SEOHeadProps {
   keywords?: string;
 }
 
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og/og-default.png`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/my-photo.png`;
 const TWITTER_HANDLE = '@mohamedmydeen'; // TODO: update with real handle
 
 const SEOHead: React.FC<SEOHeadProps> = ({
@@ -45,11 +45,11 @@ const SEOHead: React.FC<SEOHeadProps> = ({
 }) => {
   const fullTitle = title
     ? `${title} | ${SITE_NAME}`
-    : `${SITE_NAME} — Mohamed Mydeen | Full Stack & AI Engineer`;
+    : `${SITE_NAME} — Mohamed Mydeen | Full Stack Developer & Aspiring AI Engineer`;
 
   const metaDescription =
     description ||
-    'In-depth technical articles on React.js, JavaScript, AI engineering, full stack development, and software career growth by Mohamed Mydeen Shahabudeen.';
+    'Technical articles and project notes on full stack development and AI by Mohamed Mydeen Shahabudeen.';
 
   const canonicalUrl = canonical
     ? canonical.startsWith('http') ? canonical : `${SITE_URL}${canonical}`
@@ -78,9 +78,10 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:image" content={ogImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={ogImageAlt || fullTitle} />
+      <meta
+        property="og:image:alt"
+        content={ogImageAlt || (ogImage === DEFAULT_OG_IMAGE ? 'Portrait of Mohamed Mydeen' : fullTitle)}
+      />
       <meta property="og:locale" content="en_US" />
 
       {/* ── Article OG ─────────────────────────────────────────── */}
@@ -104,6 +105,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:site" content={TWITTER_HANDLE} />
       <meta name="twitter:creator" content={TWITTER_HANDLE} />
+      <meta name="twitter:url" content={canonicalUrl} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={ogImage} />

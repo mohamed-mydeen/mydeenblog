@@ -11,6 +11,7 @@ const NotFound: React.FC = () => {
         title="Page Not Found"
         description="The page you are looking for does not exist."
         canonical={`${SITE_URL}/404`}
+        noIndex
       />
       <div className="text-center max-w-md mx-auto">
         <h1 className="font-display font-bold text-8xl text-slate-200 dark:text-white/5 mb-4">404</h1>

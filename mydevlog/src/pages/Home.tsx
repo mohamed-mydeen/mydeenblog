@@ -50,8 +50,8 @@ const Home: React.FC = () => {
   return (
     <main>
       <SEOHead
-        title="Mohamed Mydeen — Full Stack & AI Engineer | Tech Blog"
-        description="Premium personal tech blog by Mohamed Mydeen. Deep dives into React.js, AI engineering, FastAPI, and production-grade software development."
+        title="Mohamed Mydeen — Full Stack Developer & Aspiring AI Engineer | Tech Blog"
+        description="Technical articles and project notes by Mohamed Mydeen on full stack development, React, Python, and AI."
         canonical={SITE_URL}
         schema={[
           websiteSchema(),

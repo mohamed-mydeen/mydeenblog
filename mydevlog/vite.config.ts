@@ -12,6 +12,10 @@ const slugify = (s: string) =>
   s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
 const dynamicRoutes = [
+  '/about',
+  '/blog',
+  '/contact',
+  '/newsletter',
   ...articles.map(a => `/article/${a.slug}`),
   ...getAllCategories().map(c => `/category/${slugify(c)}`),
   ...getAllTags().map(t => `/tag/${slugify(t)}`),
@@ -104,6 +108,52 @@ export default defineConfig({
     crittersOptions: {
       // Inline critical CSS for faster LCP
       preload: 'swap',
+    },
+    onPageRendered(_route, renderedHTML) {
+      // Hoist Helmet SEO tags (title, meta, canonical link, ld+json scripts) from #root into <head>
+      const rootStartTagMatch = renderedHTML.match(/<div id="root"[^>]*>/);
+      if (!rootStartTagMatch || rootStartTagMatch.index === undefined) return renderedHTML;
+
+      const rootStartIndex = rootStartTagMatch.index + rootStartTagMatch[0].length;
+      const rootEndIndex = renderedHTML.lastIndexOf('</div>');
+      if (rootEndIndex === -1 || rootEndIndex <= rootStartIndex) return renderedHTML;
+
+      let rootContent = renderedHTML.slice(rootStartIndex, rootEndIndex);
+      const headTags: string[] = [];
+
+      // Extract title
+      rootContent = rootContent.replace(/<title>[\s\S]*?<\/title>/g, (match) => {
+        headTags.push(match);
+        return '';
+      });
+
+      // Extract SEO meta tags
+      rootContent = rootContent.replace(/<meta\s+[^>]*?>/g, (match) => {
+        headTags.push(match);
+        return '';
+      });
+
+      // Extract canonical and preload links rendered by Helmet
+      rootContent = rootContent.replace(/<link\s+(?:[^>]*?rel=["'](?:canonical|preload)["'][^>]*?)>/g, (match) => {
+        headTags.push(match);
+        return '';
+      });
+
+      // Extract json-ld scripts
+      rootContent = rootContent.replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/g, (match) => {
+        headTags.push(match);
+        return '';
+      });
+
+      if (headTags.length === 0) return renderedHTML;
+
+      const beforeRoot = renderedHTML.slice(0, rootStartIndex);
+      const afterRoot = renderedHTML.slice(rootEndIndex);
+
+      let newHTML = beforeRoot + rootContent + afterRoot;
+      newHTML = newHTML.replace('</head>', `    ${headTags.join('\n    ')}\n  </head>`);
+
+      return newHTML;
     },
   },
 } as ViteUserConfig);

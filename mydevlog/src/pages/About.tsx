@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Github, Instagram, Mail, Phone, Linkedin } from 'lucide-react';
 import SEOHead from '../seo/SEOHead';
 import {
-  profilePageSchema,
+  personSchema,
+  aboutPageSchema,
   breadcrumbSchema,
   SITE_URL,
   AUTHOR_EMAIL,
@@ -28,17 +29,23 @@ const SKILLS = [
 const About: React.FC = () => (
   <main className="pt-24 pb-20 min-h-screen">
     <SEOHead
-      title="About Mohamed Mydeen — Full Stack & AI Engineer"
-      description="The personal journey and professional biography of Mohamed Mydeen, a Full Stack and AI Engineer passionate about React, FastAPI, and building products."
+      title="About Mohamed Mydeen Shahabudeen — Full Stack Developer & Aspiring AI Engineer"
+      description="Learn about Mohamed Mydeen Shahabudeen, a Full Stack Developer pursuing a B.Tech in Computer Science and Business Systems, with an interest in AI engineering."
       canonical={`${SITE_URL}/about`}
+      ogType="profile"
       schema={[
-        profilePageSchema(),
+        personSchema(),
+        aboutPageSchema(
+          `${SITE_URL}/about`,
+          'About Mohamed Mydeen Shahabudeen',
+          'Profile and biography of Mohamed Mydeen Shahabudeen, a Full Stack Developer and aspiring AI engineer.',
+        ),
         breadcrumbSchema([
           { name: 'Home', url: SITE_URL },
           { name: 'About', url: `${SITE_URL}/about` },
         ]),
       ]}
-      keywords="Mohamed Mydeen, biography, Full Stack Engineer, AI Developer, Melapalayam, React, FastAPI, profile"
+      keywords="Mohamed Mydeen, Mohamed Mydeen Shahabudeen, Mohamed Ukasha, Full Stack Developer, AI Engineer, Computer Science and Business Systems, FXEC, React, FastAPI, Mydeen AI"
     />
     <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
@@ -157,7 +164,7 @@ const About: React.FC = () => (
           </p>
 
           <p>
-            By 9th standard, life became even more meaningful and beautiful, thank God. Despite family struggles, emotional challenges, and hardships, I continued moving forward with patience, faith, and determination.
+            By 9th standard, life became even more meaningful and beautiful, thank God. Despite personal challenges, emotional hurdles, and early hardships, I continued moving forward with patience, faith, and determination.
           </p>
 
           <p>
@@ -421,7 +428,33 @@ const About: React.FC = () => (
         </div>
       </motion.section>
 
-
+      {/* Profile Summary & Professional Overview */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mb-14"
+        aria-labelledby="profile-overview-heading"
+      >
+        <h2 id="profile-overview-heading" className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-6 tracking-tight">
+          Professional Profile &amp; Summary
+        </h2>
+        <div className="p-6 sm:p-8 rounded-2xl border border-slate-200/60 dark:border-white/10 bg-slate-50/50 dark:bg-ink-900/40 space-y-4 text-[15px] text-slate-600 dark:text-slate-400 leading-[1.85]">
+          <p>
+            <strong className="text-slate-900 dark:text-white font-semibold">Mohamed Mydeen Shahabudeen</strong> is a Full Stack Developer and aspiring AI Engineer pursuing a Bachelor of Technology (B.Tech) in Computer Science and Business Systems (CSBS).
+          </p>
+          <p>
+            His technical interests include web engineering, backend development, and artificial intelligence. Technologies featured in his work include React, TypeScript, Python, FastAPI, PostgreSQL, and Supabase.
+          </p>
+          <p>
+            His project work includes <a href="https://mydeenai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline inline-flex items-center gap-0.5">Mydeen AI <ArrowUpRight size={13} className="inline" /></a> and SafeCheck, a URL security analysis project.
+          </p>
+          <p className="pt-2 border-t border-slate-200/60 dark:border-white/10 text-[14px]">
+            Follow his updates on Instagram at <a href={AUTHOR_INSTAGRAM} target="_blank" rel="noopener noreferrer" className="text-pink-600 dark:text-pink-400 font-medium hover:underline">@mohamed_ukasha</a>, view his code repositories on <a href={AUTHOR_GITHUB} target="_blank" rel="noopener noreferrer" className="text-slate-800 dark:text-slate-200 font-medium hover:underline">GitHub</a>, or connect via <a href={AUTHOR_LINKEDIN} target="_blank" rel="noopener noreferrer" className="text-sky-600 dark:text-sky-400 font-medium hover:underline">LinkedIn</a> and <a href={`mailto:${AUTHOR_EMAIL}`} className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">Email</a>.
+          </p>
+        </div>
+      </motion.section>
 
       {/* CTA */}
       <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-100 dark:border-white/10">

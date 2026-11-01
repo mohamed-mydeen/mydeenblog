@@ -301,8 +301,8 @@ const Article: React.FC = () => {
         description={article.seoDescription || article.excerpt}
         canonical={`${SITE_URL}/article/${article.slug}`}
         ogType="article"
-        ogImage={article.coverImage || `${SITE_URL}/og/og-default.png`}
-        ogImageAlt={article.title}
+        ogImage={article.coverImage}
+        ogImageAlt={article.coverImage ? article.title : 'Portrait of Mohamed Mydeen'}
         articlePublishedTime={article.publishedAt}
         articleModifiedTime={article.lastModified || article.publishedAt}
         articleSection={article.category}

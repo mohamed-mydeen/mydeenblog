@@ -8,16 +8,7 @@ export const AUTHOR_NAME       = 'Mohamed Mydeen Shahabudeen';
 export const AUTHOR_DISPLAY    = 'Mohamed Mydeen';
 export const AUTHOR_ALTERNATE_NAMES = [
   'Mohamed Mydeen',
-  'Mohamed Mydeen Shahabudeen',
   'Mohamed Ukasha',
-  'Mydeen',
-  'Mydeen AI',
-  'Mohamed Mydeen Developer',
-  'Mohamed Mydeen Software Engineer',
-  'Mohamed Mydeen Portfolio',
-  'Mohamed Mydeen Blog',
-  'Mohamed Mydeen FXEC',
-  'Mohamed Mydeen Francis Xavier',
 ];
 export const AUTHOR_GITHUB     = 'https://github.com/mohamed-mydeen';
 export const AUTHOR_LINKEDIN   = 'https://linkedin.com/in/mohamed-mydeen4262';
@@ -103,60 +94,22 @@ export const personSchema = () => ({
   givenName: 'Mohamed',
   familyName: 'Mydeen Shahabudeen',
   additionalName: 'Ukasha',
-  jobTitle: 'Full Stack & AI Engineer',
+  jobTitle: 'Full Stack Developer',
   description:
-    'Mohamed Mydeen Shahabudeen (also known as Mohamed Ukasha) is a Full Stack & AI Engineer and B.Tech CSBS student at Francis Xavier Engineering College, Tirunelveli, Tamil Nadu. Creator of Mydeen AI, SafeCheck, Feast At Night. Winner of Best Student of the Year 2022-2023.',
+    'Mohamed Mydeen Shahabudeen is a Full Stack Developer and aspiring AI engineer studying B.Tech in Computer Science and Business Systems. His website features technical articles and project work.',
   url: `${SITE_URL}/about`,
-  mainEntityOfPage: `${SITE_URL}/who-is-mohamed-mydeen`,
-  image: {
-    '@type': 'ImageObject',
-    url: `${SITE_URL}/my-photo.png`,
-    width: 400,
-    height: 400,
-  },
-  email: `mailto:${AUTHOR_EMAIL}`,
-  telephone: AUTHOR_PHONE,
+  mainEntityOfPage: `${SITE_URL}/about`,
+  image: `${SITE_URL}/my-photo.png`,
   sameAs: [
     AUTHOR_GITHUB,
     AUTHOR_LINKEDIN,
     AUTHOR_INSTAGRAM,
-    AUTHOR_AI_PROJECT,
-    'https://mydeen.vercel.app',          // portfolio
-    `${SITE_URL}/about`,
-    `${SITE_URL}/author/mohamed-mydeen`,
-    `${SITE_URL}/who-is-mohamed-mydeen`,
+    AUTHOR_TWITTER,
   ],
-  alumniOf: {
-    '@type': 'EducationalOrganization',
-    name: 'Francis Xavier Engineering College',
-    alternateName: 'FXEC',
-    url: 'https://francisxavier.ac.in',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Tirunelveli',
-      addressRegion: 'Tamil Nadu',
-      addressCountry: 'IN',
-    },
-  },
   knowsAbout: [
-    'React.js', 'JavaScript', 'TypeScript', 'Full Stack Development',
-    'Artificial Intelligence', 'Machine Learning', 'FastAPI', 'Python',
-    'Software Engineering', 'Product Development', 'Supabase', 'PostgreSQL',
-    'Progressive Web Apps', 'Cybersecurity', 'Fraud Detection',
+    'React', 'TypeScript', 'Python', 'FastAPI', 'Artificial Intelligence',
+    'PostgreSQL', 'Supabase',
   ],
-  hasOccupation: {
-    '@type': 'Occupation',
-    name: 'Full Stack & AI Engineer',
-    skills: 'React, TypeScript, Python, FastAPI, AI/ML, PostgreSQL, Supabase',
-  },
-  award: 'Best Student of the Year 2022-2023, Francis Xavier Engineering College',
-  nationality: { '@type': 'Country', name: 'India' },
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Tirunelveli',
-    addressRegion: 'Tamil Nadu',
-    addressCountry: 'IN',
-  },
 });
 
 // WebSite Schema
@@ -268,9 +221,9 @@ export const profilePageSchema = (slug = 'author/mohamed-mydeen') => ({
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
   '@id': `${SITE_URL}/${slug}#profilepage`,
-  name: 'Mohamed Mydeen Shahabudeen — Full Stack & AI Engineer',
+  name: 'Mohamed Mydeen Shahabudeen — Full Stack Developer',
   description:
-    'Profile of Mohamed Mydeen Shahabudeen (Mohamed Ukasha), Full Stack & AI Engineer, B.Tech CSBS student at FXEC Tirunelveli, creator of Mydeen AI.',
+    'Profile of Mohamed Mydeen Shahabudeen, a Full Stack Developer and aspiring AI engineer studying B.Tech in Computer Science and Business Systems.',
   url: `${SITE_URL}/${slug}`,
   mainEntity: { '@id': `${SITE_URL}/#person` },
   about: { '@id': `${SITE_URL}/#person` },

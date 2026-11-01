@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './context/ThemeContext';
 import { useLenis } from './hooks/useLenis';
 import Navbar from './components/layout/Navbar';
@@ -103,11 +102,9 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <HelmetProvider>
-      <ThemeProvider>
-        <AppInner />
-      </ThemeProvider>
-    </HelmetProvider>
+    <ThemeProvider>
+      <AppInner />
+    </ThemeProvider>
   );
 };
 
